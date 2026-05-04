@@ -1,19 +1,46 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #fafafa;
-  --accent: #10b981;
-  --accent-strong: #059669;
+  --canvas: #f8f9fa;
+  --ink: #120b06;
+  --rose: #4ade80;
+  --blue: #16a34a;
+  --orange: #fb824f;
+  --surface: #ffffff;
+  --background: var(--canvas);
+  --foreground: var(--ink);
+  /* Pulse / accent ring (brand gradient endpoints) */
+  --accent: var(--blue);
+  --accent-rose: var(--rose);
+  --gradient-primary: linear-gradient(90deg, var(--blue) 0%, var(--rose) 100%);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-accent-strong: var(--accent-strong);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--canvas);
+  --color-foreground: var(--ink);
+  --color-canvas: var(--canvas);
+  --color-ink: var(--ink);
+  --color-surface: var(--surface);
+  --color-rose: var(--rose);
+  --color-blue: var(--blue);
+  --color-orange: var(--orange);
+  --color-muted: #5c5652;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: -0.36px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 500;
+    letter-spacing: -0.5px;
+  }
 }
 
 html {
@@ -45,7 +72,7 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 9999px;
-  background: var(--accent);
+  background: var(--gradient-primary);
   z-index: -1;
   animation: pulse-ring 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

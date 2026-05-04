@@ -8,7 +8,7 @@ import WhatsAppFloat from "./components/WhatsAppFloat";
 
 export default function Home() {
   return (
-    <main className="flex flex-1 flex-col bg-black">
+    <main className="flex flex-1 flex-col bg-background">
       <Hero />
       <Services />
       <Differentials />
@@ -16,7 +16,7 @@ export default function Home() {
       <ServiceArea />
       <FinalCTA />
 
-      <footer className="border-t border-white/5 bg-black px-6 py-10 text-center text-sm text-zinc-500 sm:px-8">
+      <footer className="border-t border-ink/10 bg-surface px-6 py-10 text-center text-sm text-muted sm:px-8">
         <p>
           © {new Date().getFullYear()} Drone SP · Filmagem e fotografia aérea ·
           São Paulo
