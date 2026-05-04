@@ -56,7 +56,7 @@ export default function Services() {
           </div>
         </ScrollReveal>
 
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div className="mt-14 grid grid-cols-3 gap-6 ">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
