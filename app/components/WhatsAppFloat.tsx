@@ -38,19 +38,19 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Abrir conversa no WhatsApp"
-      className={`group fixed right-4 bottom-4 z-50 inline-flex items-center gap-3 transition-all duration-300 sm:right-6 sm:bottom-6 ${
+      className={`group fixed right-4 bottom-4 z-50 inline-flex items-center gap-3 transition-all duration-300 ease-out sm:right-6 sm:bottom-6 ${
         visible
           ? "pointer-events-auto translate-y-0 opacity-100"
           : "pointer-events-none translate-y-6 opacity-0"
       }`}
     >
       {/* Tooltip label — desktop only. */}
-      <span className="hidden rounded-full border border-white/10 bg-zinc-900/90 px-4 py-2 text-sm font-medium text-white shadow-lg backdrop-blur-md sm:inline-block">
+      <span className="hidden rounded-full border border-ink/10 bg-surface/95 px-4 py-2 text-sm font-medium tracking-[-0.36px] text-ink shadow-[0_8px_24px_-8px_rgba(18,11,6,0.15)] backdrop-blur-md sm:inline-block">
         Fale no WhatsApp
       </span>
 
-      {/* Round button with a pulsing emerald ring. */}
-      <span className="pulse-ring relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-black shadow-[0_10px_30px_-5px_rgba(16,185,129,0.8)] transition-transform duration-200 group-hover:scale-110 group-hover:bg-emerald-400 group-focus-visible:ring-2 group-focus-visible:ring-emerald-300 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-black sm:h-16 sm:w-16">
+      {/* Round button with a pulsing brand ring. */}
+      <span className="pulse-ring relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-blue to-rose text-white shadow-[0_12px_36px_-8px_rgba(92,140,255,0.55)] transition-all duration-300 ease-out group-hover:scale-110 group-hover:shadow-[0_16px_40px_-8px_rgba(255,152,204,0.45)] group-focus-visible:ring-2 group-focus-visible:ring-orange group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-background sm:h-16 sm:w-16">
         <WhatsAppIcon className="h-7 w-7 sm:h-8 sm:w-8" />
       </span>
     </a>

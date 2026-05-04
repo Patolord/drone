@@ -65,18 +65,18 @@ export default function Gallery() {
   return (
     <section
       id="galeria"
-      className="relative w-full px-6 py-24 sm:px-8 sm:py-32"
+      className="relative w-full bg-surface px-6 py-24 sm:px-8 sm:py-32"
     >
       <div className="mx-auto max-w-6xl">
         <ScrollReveal>
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold tracking-widest text-emerald-400 uppercase">
+            <p className="text-sm font-medium tracking-widest text-blue uppercase">
               Galeria
             </p>
-            <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
+            <h2 className="mt-3 text-balance text-[40px] leading-tight tracking-[-0.5px] text-ink sm:mx-auto">
               Um pouco do nosso trabalho
             </h2>
-            <p className="mt-4 text-pretty text-base text-zinc-400 sm:text-lg">
+            <p className="mt-4 text-pretty text-base tracking-[-0.36px] text-muted sm:text-lg">
               Imagens capturadas em projetos reais na Zona Norte e Centro de São
               Paulo.
             </p>
@@ -94,7 +94,7 @@ export default function Gallery() {
             onMouseLeave={() => setIsPaused(false)}
             onFocus={() => setIsPaused(true)}
             onBlur={() => setIsPaused(false)}
-            className="relative mt-14 overflow-hidden rounded-3xl border border-white/10 bg-zinc-900 shadow-2xl focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:outline-none"
+            className="relative mt-14 overflow-hidden rounded-3xl border border-ink/10 bg-canvas shadow-[0_12px_48px_-16px_rgba(18,11,6,0.12)] focus-visible:ring-2 focus-visible:ring-blue focus-visible:outline-none"
           >
             {/* Slides track */}
             <div
@@ -113,7 +113,7 @@ export default function Gallery() {
                       even if the photo file hasn't been added yet. */}
                   <div
                     aria-hidden
-                    className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-zinc-800 to-black"
+                    className="absolute inset-0 bg-gradient-to-br from-rose/35 via-blue/20 to-ink/80"
                   />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -128,8 +128,8 @@ export default function Gallery() {
                     }}
                   />
                   {item.caption && (
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-5 sm:p-8">
-                      <p className="text-sm font-medium text-white sm:text-base">
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 via-ink/45 to-transparent p-5 sm:p-8">
+                      <p className="text-sm font-medium tracking-[-0.36px] text-white sm:text-base">
                         {item.caption}
                       </p>
                     </div>
@@ -143,17 +143,17 @@ export default function Gallery() {
               type="button"
               onClick={prev}
               aria-label="Imagem anterior"
-              className="absolute top-1/2 left-3 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-2.5 text-white backdrop-blur-md transition-all hover:scale-105 hover:border-emerald-400/60 hover:bg-black/70 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:outline-none sm:left-5 sm:p-3"
+              className="absolute top-1/2 left-3 -translate-y-1/2 rounded-full border border-white/40 bg-ink/45 p-2.5 text-white shadow-lg backdrop-blur-md transition-all duration-300 ease-out hover:scale-105 hover:border-rose/50 hover:bg-ink/60 focus-visible:ring-2 focus-visible:ring-orange focus-visible:outline-none sm:left-5 sm:p-3"
             >
-              <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden />
+              <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={1.5} aria-hidden />
             </button>
             <button
               type="button"
               onClick={next}
               aria-label="Próxima imagem"
-              className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-2.5 text-white backdrop-blur-md transition-all hover:scale-105 hover:border-emerald-400/60 hover:bg-black/70 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:outline-none sm:right-5 sm:p-3"
+              className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full border border-white/40 bg-ink/45 p-2.5 text-white shadow-lg backdrop-blur-md transition-all duration-300 ease-out hover:scale-105 hover:border-rose/50 hover:bg-ink/60 focus-visible:ring-2 focus-visible:ring-orange focus-visible:outline-none sm:right-5 sm:p-3"
             >
-              <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden />
+              <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={1.5} aria-hidden />
             </button>
 
             {/* Dot indicators */}
@@ -165,10 +165,10 @@ export default function Gallery() {
                   onClick={() => goTo(i)}
                   aria-label={`Ir para a imagem ${i + 1}`}
                   aria-current={i === index}
-                  className={`h-1.5 rounded-full transition-all duration-300 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:outline-none ${
+                  className={`h-1.5 rounded-full transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-orange focus-visible:outline-none ${
                     i === index
-                      ? "w-8 bg-emerald-400"
-                      : "w-3 bg-white/40 hover:bg-white/70"
+                      ? "w-8 bg-gradient-to-r from-blue to-rose"
+                      : "w-3 bg-white/50 hover:bg-white/85"
                   }`}
                 />
               ))}
