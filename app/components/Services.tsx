@@ -26,12 +26,7 @@ const services: Service[] = [
     description:
       "Imagens de alta resolução com tratamento profissional para divulgação, campanhas e portfólio.",
   },
-  {
-    icon: PartyPopper,
-    title: "Cobertura de Eventos",
-    description:
-      "Casamentos, festas corporativas, shows e eventos esportivos vistos de um ângulo inesquecível.",
-  },
+
   {
     icon: Building2,
     title: "Imobiliárias & Empresas",

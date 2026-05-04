@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "drone zona norte",
     "drone centro SP",
     "imagens aéreas",
-    "cobertura de eventos com drone",
+    
   ],
   openGraph: {
     title: "Drone SP — Filmagem e Fotografia Aérea",

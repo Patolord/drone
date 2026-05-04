@@ -14,7 +14,7 @@ type GalleryItem = {
 // Drop your photos in /public/gallery/ with these filenames, or replace the list.
 const items: GalleryItem[] = [
   { src: "/gallery/1.jpg", alt: "Vista aérea da cidade ao entardecer", caption: "Vista aérea · Entardecer" },
-  { src: "/gallery/2.jpg", alt: "Imagem aérea de evento corporativo", caption: "Cobertura de evento" },
+ 
   { src: "/gallery/3.jpg", alt: "Vista de imóvel com drone", caption: "Tour imobiliário" },
   { src: "/gallery/4.jpg", alt: "Paisagem urbana de São Paulo vista de cima", caption: "Zona Norte · SP" },
   { src: "/gallery/5.jpg", alt: "Imagem aérea de casamento ao ar livre", caption: "Casamento ao ar livre" },
