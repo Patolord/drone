@@ -8,8 +8,9 @@ export default function Hero() {
       id="hero"
       className="relative isolate flex min-h-[100svh] w-full items-center justify-center overflow-hidden"
     >
+      {/* VIDEO */}
       <video
-        className="absolute inset-0 -z-10 h-full w-full object-cover"
+        className="absolute inset-0 -z-10 h-full w-full object-cover brightness-110 contrast-110"
         autoPlay
         loop
         muted
@@ -18,11 +19,13 @@ export default function Hero() {
         <source src="/videos/video_hero_section.mp4" type="video/mp4" />
       </video>
 
+      {/* OVERLAY */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/40 via-ink/60 to-ink/90"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-black/30 via-black/40 to-black/60"
       />
 
+      {/* CONTEÚDO */}
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-24 text-center sm:px-8">
         <ScrollReveal>
           <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs font-medium tracking-wide text-white uppercase backdrop-blur-sm">
@@ -41,15 +44,9 @@ export default function Hero() {
           </h1>
         </ScrollReveal>
 
+        {/* BOTÕES (aproximados) */}
         <ScrollReveal delay={220}>
-          <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed tracking-[-0.36px] text-white/90 sm:text-lg md:text-xl">
-            Atendimento rápido na Zona Norte e Centro da cidade. Equipamento
-            profissional, imagens em alta resolução e entrega ágil.
-          </p>
-        </ScrollReveal>
-
-        <ScrollReveal delay={320}>
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row">
             <a
               href={buildWhatsAppUrl()}
               target="_blank"
