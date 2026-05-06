@@ -97,7 +97,7 @@ export default function Services() {
                         key={i}
                         className="flex items-center gap-2 text-xs text-blue/80"
                       >
-                        <Check size={14} />
+                        <Check size={14} aria-hidden />
                         {item}
                       </li>
                     ))}

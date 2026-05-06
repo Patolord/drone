@@ -1,8 +1,14 @@
 const muxVideoUrl = (playbackId: string) =>
   `https://stream.mux.com/${playbackId}.m3u8`;
 
-export const HERO_VIDEO_SRC = muxVideoUrl(
-  "9sxZTOic00L9YY9wAn8gO79cKa1p5PK01Vup9b1iilBlA",
+const muxThumbnailUrl = (playbackId: string) =>
+  `https://image.mux.com/${playbackId}/thumbnail.webp?time=1&width=2560&height=1440&fit_mode=crop`;
+
+const HERO_VIDEO_PLAYBACK_ID = "9sxZTOic00L9YY9wAn8gO79cKa1p5PK01Vup9b1iilBlA";
+
+export const HERO_VIDEO_SRC = muxVideoUrl(HERO_VIDEO_PLAYBACK_ID);
+export const HERO_VIDEO_POSTER_SRC = muxThumbnailUrl(
+  HERO_VIDEO_PLAYBACK_ID,
 );
 
 export const video01 = muxVideoUrl(
