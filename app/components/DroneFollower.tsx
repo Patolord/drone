@@ -12,7 +12,7 @@ export default function DroneFollower() {
     let mouseX = droneX;
     let mouseY = droneY;
 
-    const preferredDistance = 80; // distância menor
+    const preferredDistance = 80;
     const followSpeed = 0.08;
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -23,7 +23,6 @@ export default function DroneFollower() {
     window.addEventListener("mousemove", handleMouseMove);
 
     const animate = () => {
-      // 🔥 direção do mouse
       const dx = mouseX - droneX;
       const dy = mouseY - droneY;
 
@@ -37,14 +36,12 @@ export default function DroneFollower() {
         dirY = dy / distance;
       }
 
-      // 🔥 drone fica atrás do mouse
       const targetX = mouseX - dirX * preferredDistance;
       const targetY = mouseY - dirY * preferredDistance;
 
       droneX += (targetX - droneX) * followSpeed;
       droneY += (targetY - droneY) * followSpeed;
 
-      // 🔥 rotação
       let angle = (Math.atan2(dy, dx) * 180) / Math.PI;
 
       let flip = 1;
@@ -85,27 +82,65 @@ export default function DroneFollower() {
       ref={droneRef}
       style={{
         position: "fixed",
-        width: "80px",
-        height: "80px",
+        width: "90px",
+        height: "90px",
         pointerEvents: "none",
         zIndex: 9999,
-        filter: "drop-shadow(0 0 8px #00ff99)",
       }}
     >
-      {/* SVG COMPLETO CORRETO */}
-      <svg viewBox="0 0 511.999 511.999">
-        <g>
-          <rect x="239.154" y="193.604" width="33.684" height="92.776" fill="#AFB6C7"/>
-          <path fill="#707287" d="M256,127.016c-18.703,0-33.865,15.162-33.865,33.865v32.72h67.73v-32.72C289.865,142.179,274.703,127.016,256,127.016z"/>
-          <path fill="#C7CFE2" d="M93.549,140.751c0,8.437-27.145,15.276-60.631,15.276s-33.485-30.551,0-30.551S93.549,132.315,93.549,140.751z"/>
-          <path fill="#C7CFE2" d="M418.451,140.751c0,8.437,27.145,15.276,60.631,15.276s33.485-30.551,0-30.551S418.451,132.315,418.451,140.751z"/>
-          <path fill="#707287" d="M107.774,179.847c8.659-22.513,5.938-53.685-14.226-53.685s-22.884,31.172-14.226,53.685H107.774z"/>
-          <path fill="#707287" d="M404.226,179.847c-8.658-22.513-5.938-53.685,14.226-53.685s22.884,31.172,14.226,53.685H404.226z"/>
-          <rect x="209.179" y="263.594" width="93.639" height="93.639" fill="#5B5D6E"/>
-          <circle cx="255.999" cy="310.414" r="24.034" fill="#2A2A33"/>
-          <circle cx="255.999" cy="310.622" r="7.187" fill="#000000"/>
-        </g>
-      </svg>
+      {/* SVG COMPLETO ORIGINAL */}
+      <svg
+  viewBox="0 0 512 512"
+  style={{ width: "100%", height: "100%" }}
+>
+  {/* HÉLICES */}
+  <path style={{ fill: "#C7CFE2" }} d="M503.172,141.241H308.966c-4.875,0-8.828-3.953-8.828-8.828s3.953-8.828,8.828-8.828h194.207c4.875,0,8.828,3.953,8.828,8.828S508.047,141.241,503.172,141.241z"/>
+  <path style={{ fill: "#C7CFE2" }} d="M203.034,141.241H8.828c-4.875,0-8.828-3.953-8.828-8.828s3.953-8.828,8.828-8.828h194.207c4.875,0,8.828,3.953,8.828,8.828S207.91,141.241,203.034,141.241z"/>
+
+  {/* SUPORTES */}
+  <path style={{ fill: "#959CB3" }} d="M105.931,105.931c-4.875,0-8.828,3.953-8.828,8.828v44.138h17.655v-44.138C114.759,109.884,110.806,105.931,105.931,105.931z"/>
+  <path style={{ fill: "#959CB3" }} d="M406.069,105.931c-4.875,0-8.828,3.953-8.828,8.828v44.138h17.655v-44.138C414.897,109.884,410.944,105.931,406.069,105.931z"/>
+
+  {/* MOTORES */}
+  <rect x="79.448" y="167.724" style={{ fill: "#5B5D6E" }} width="52.966" height="17.655"/>
+  <rect x="379.586" y="167.724" style={{ fill: "#5B5D6E" }} width="52.966" height="17.655"/>
+
+  {/* 🔥 CARCAÇA CORRIGIDA */}
+  <path
+    style={{ fill: "#C7CFE2" }}
+    d="M441.379,203.034H70.621c-4.875,0-8.828-3.953-8.828-8.828s3.953-8.828,8.828-8.828h370.759c4.875,0,8.828,3.953,8.828,8.828S446.254,203.034,441.379,203.034z"
+  />
+
+  <g>
+    <path
+      style={{ fill: "#B8C2D9" }}
+      d="M334.869,166.784l-34.951-3.495c-29.206-2.921-58.632-2.921-87.838,0l-34.951,3.495
+      c-6.083,0.608-11.768,3.303-16.09,7.625l-10.97,10.97H256h105.931l-10.97-10.97
+      C346.637,170.086,340.952,167.392,334.869,166.784z"
+    />
+
+    <path
+      style={{ fill: "#AEB9D4" }}
+      d="M123.586,203.034l9.899,9.899c4.967,4.967,11.702,7.756,18.727,7.756h19.926
+      c8.335,0,16.184,3.925,21.186,10.593l7.945,10.593c6.668,8.892,17.134,14.124,28.248,14.124h52.966
+      c11.114,0,21.58-5.233,28.248-14.124l7.945-10.593c5.002-6.668,12.851-10.593,21.186-10.593h19.927
+      c7.023,0,13.76-2.791,18.727-7.756l9.898-9.899H123.586z"
+    />
+  </g>
+
+  {/* PERNAS */}
+  <rect x="238.345" y="247.172" style={{ fill: "#5B5D6E" }} width="35.31" height="88.276"/>
+
+  {/* CÂMERA */}
+  <path style={{ fill: "#959CB3" }} d="M317.793,397.241h-88.276c-4.875,0-8.828-3.953-8.828-8.828v-52.966c0-4.875,3.953-8.828,8.828-8.828h88.276c4.875,0,8.828,3.953,8.828,8.828v52.966C326.621,393.289,322.668,397.241,317.793,397.241z"/>
+
+  <circle style={{ fill: "#464655" }} cx="291.31" cy="361.931" r="26.483"/>
+  <circle style={{ fill: "#E4EAF6" }} cx="291.31" cy="361.931" r="8.828"/>
+
+  {/* LUZES */}
+  <path style={{ fill: "#FF6464" }} d="M150.069,203.034h-8.828c-4.875,0-8.828-3.953-8.828-8.828v-8.828h26.483v8.828C158.897,199.082,154.944,203.034,150.069,203.034z"/>
+  <path style={{ fill: "#FF6464" }} d="M379.586,203.034h-8.828c-4.875,0-8.828-3.953-8.828-8.828v-8.828h26.483v8.828C388.414,199.082,384.461,203.034,379.586,203.034z"/>
+</svg>
     </div>
   );
 }
