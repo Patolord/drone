@@ -15,6 +15,7 @@ export default function Hero() {
         loop
         muted
         playsInline
+        preload="metadata"
       >
         <source src="/videos/video_hero_section.mp4" type="video/mp4" />
       </video>
