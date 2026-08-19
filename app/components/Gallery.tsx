@@ -143,6 +143,9 @@ export default function Gallery() {
             <p className="mt-4 text-base text-muted sm:text-lg">
               Imagens capturadas em projetos reais na Zona Norte e Centro de São Paulo.
             </p>
+            <p className="mt-2 text-sm text-muted">
+              Imagens publicadas com autorização dos clientes.
+            </p>
           </div>
         </ScrollReveal>
 

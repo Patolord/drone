@@ -1,8 +1,12 @@
 "use client";
 
+import Link from "next/link";
+import { buildWhatsAppUrl } from "../lib/whatsapp";
 import ScrollReveal from "./ScrollReveal";
 
 export default function Pricing() {
+  const quoteUrl = buildWhatsAppUrl();
+
   return (
     <section className="w-full bg-canvas px-6 py-28 sm:px-8 sm:py-36">
       <div className="mx-auto max-w-6xl">
@@ -32,13 +36,10 @@ export default function Pricing() {
 
             {/* CARDS CONTATO */}
             <ScrollReveal delay={100}>
-              <div
-                onClick={() =>
-                  window.open(
-                    "https://wa.me/5511996153626?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento%20de%20filmagem%20com%20drone",
-                    "_blank"
-                  )
-                }
+              <a
+                href={quoteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="cursor-pointer rounded-2xl border border-ink/10 bg-surface p-5 flex items-center gap-3 hover:shadow-md transition"
               >
                 <div className="bg-green-100 p-2.5 rounded-full flex items-center justify-center">
@@ -51,7 +52,7 @@ export default function Pricing() {
                   <p className="text-sm text-muted">(11) 99615-3626</p>
                   <p className="text-xs text-muted">Resposta rápida</p>
                 </div>
-              </div>
+              </a>
             </ScrollReveal>
 
             {/* MAPA */}
@@ -94,7 +95,10 @@ export default function Pricing() {
               </div>
 
               <p className="mt-2 text-sm text-muted">
-                Pagamento via Pix
+                A partir de R$900. Pagamento via Pix.
+              </p>
+              <p className="mt-1 text-xs text-muted">
+                Valor sujeito a alteração em casos especiais.
               </p>
 
               <ul className="mt-8 space-y-3 text-sm text-muted">
@@ -103,15 +107,23 @@ export default function Pricing() {
                 <li>✔ Imagens em alta qualidade</li>
                 <li>✔ Entrega rápida do material bruto</li>
                 <li>✔ Edição cobrada à parte</li>
+                <li>✔ Direito de imagem cobrado à parte</li>
               </ul>
 
               <a
-                href="https://wa.me/5511996153626?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento%20de%20filmagem%20com%20drone"
+                href={quoteUrl}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="mt-10 inline-flex items-center justify-center gap-2 rounded-full bg-green-500 px-8 py-4 text-base font-medium text-white transition-all duration-300 hover:bg-green-600 hover:scale-105 hover:shadow-lg"
               >
                 Solicitar pelo WhatsApp
               </a>
+
+              <p className="mt-5 text-xs text-muted">
+                <Link href="/termos" className="underline-offset-4 hover:text-ink hover:underline">
+                  Ver termos
+                </Link>
+              </p>
 
             </div>
           </ScrollReveal>
