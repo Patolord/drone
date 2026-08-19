@@ -1,36 +1,22 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { GALLERY_VIDEOS, muxPosterUrl } from "../lib/video-urls";
+import MuxBgVideo from "./MuxBgVideo";
 import ScrollReveal from "./ScrollReveal";
 
-type GalleryItem = {
-  src: string;
-  alt: string;
-  caption?: string;
-};
-
-const items: GalleryItem[] = [
-  { src: "/videos/video01.webm", alt: "Vídeo 1", caption: "Projeto praia · Guarujá" },
-  { src: "/videos/video02.webm", alt: "Vídeo 2", caption: "projeto sitio · festa junina" },
-  { src: "/videos/video03.webm", alt: "Vídeo 3", caption: "Projeto Ilha · Litoral" },
-  { src: "/videos/video04.webm", alt: "Vídeo 4", caption: "Projeto Tênis · Zona Norte" },
-  { src: "/videos/video05.webm", alt: "Vídeo 5", caption: "Projeto Nature Flow · Costa" },
-  { src: "/videos/video06.webm", alt: "Vídeo 6", caption: "Projeto Residencial · placa Solar" },
-  { src: "/videos/video07.webm", alt: "Vídeo 7", caption: "Projeto Mapeamento Aéreo · Zona Leste" },
-  { src: "/videos/video08.webm", alt: "Vídeo 8", caption: "Projeto Vista Urbana · Centro" },
-  { src: "/videos/video09.webm", alt: "Vídeo 9", caption: "Projeto Apresentação de Terreno · Rural" },
-  { src: "/videos/video10.webm", alt: "Vídeo 10", caption: "Projeto Inspeção Estrutural · Residencial" },
-];
+const items = GALLERY_VIDEOS.map((item) => ({
+  ...item,
+  posterSrc: muxPosterUrl(item.playbackId),
+}));
 
 export default function Gallery() {
   const [index, setIndex] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [sectionVisible, setSectionVisible] = useState(false);
-  const indexRef = useRef(0);
-  const sectionVisibleRef = useRef(false);
 
   const next = useCallback(() => {
     setIndex((v) => (v + 1) % items.length);
@@ -41,38 +27,6 @@ export default function Gallery() {
   }, []);
 
   const goTo = useCallback((i: number) => setIndex(i), []);
-
-  const resetVideo = useCallback((video: HTMLVideoElement, reload: boolean) => {
-    video.pause();
-    try {
-      video.currentTime = 0;
-    } catch {}
-    if (reload) video.load();
-  }, []);
-
-  const syncVideos = useCallback(
-    (activeIndex: number, isVisible: boolean) => {
-      videoRefs.current.forEach((video, i) => {
-        if (!video) return;
-        const isActive = isVisible && i === activeIndex;
-        if (!isActive) {
-          resetVideo(video, false);
-          return;
-        }
-        resetVideo(video, true);
-        void video.play().catch(() => {});
-      });
-    },
-    [resetVideo]
-  );
-
-  useEffect(() => {
-    indexRef.current = index;
-  }, [index]);
-
-  useEffect(() => {
-    sectionVisibleRef.current = sectionVisible;
-  }, [sectionVisible]);
 
   useEffect(() => {
     const el = trackRef.current;
@@ -98,32 +52,14 @@ export default function Gallery() {
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        const on = entry.isIntersecting;
-        sectionVisibleRef.current = on;
-        setSectionVisible(on);
+        setSectionVisible(Boolean(entry?.isIntersecting));
       },
-      { rootMargin: "160px 0px", threshold: 0.04 }
+      { rootMargin: "160px 0px", threshold: 0.04 },
     );
 
     io.observe(root);
     return () => io.disconnect();
   }, []);
-
-  useEffect(() => {
-    syncVideos(index, sectionVisible);
-  }, [index, sectionVisible, syncVideos]);
-
-  const setVideoRef = useCallback((i: number) => (el: HTMLVideoElement | null) => {
-    videoRefs.current[i] = el;
-  }, []);
-
-  const handleVideoEnded = useCallback(
-    (i: number) => {
-      if (!sectionVisibleRef.current || i !== indexRef.current) return;
-      next();
-    },
-    [next]
-  );
 
   return (
     <section
@@ -141,7 +77,8 @@ export default function Gallery() {
               Um pouco do nosso trabalho
             </h2>
             <p className="mt-4 text-base text-muted sm:text-lg">
-              Imagens capturadas em projetos reais na Zona Norte e Centro de São Paulo.
+              Imagens capturadas em projetos reais na Zona Norte e Centro de São
+              Paulo.
             </p>
             <p className="mt-2 text-sm text-muted">
               Imagens publicadas com autorização dos clientes.
@@ -153,36 +90,52 @@ export default function Gallery() {
           <div
             ref={trackRef}
             tabIndex={0}
-            className="relative mt-14 overflow-hidden rounded-3xl border border-ink/10 bg-canvas shadow-lg"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Galeria de vídeos e imagens aéreas"
+            className="relative mt-14 overflow-hidden rounded-3xl border border-ink/10 bg-canvas shadow-lg focus-visible:ring-2 focus-visible:ring-blue focus-visible:outline-none"
           >
-            <div className="relative w-full aspect-[16/9] sm:aspect-[21/9]">
+            <div className="relative aspect-video w-full sm:aspect-21/9">
               {items.map((item, i) => {
                 const isActive = i === index;
+                const shouldStream = isActive && sectionVisible;
+
                 return (
                   <div
-                    key={item.src}
+                    key={item.playbackId}
                     className={`absolute inset-0 transition-opacity duration-500 ${
-                      isActive ? "z-10 opacity-100" : "z-0 opacity-0 [content-visibility:auto]"
+                      isActive
+                        ? "z-10 opacity-100"
+                        : "z-0 opacity-0 [content-visibility:auto]"
                     }`}
                   >
-                    {/* OVERLAY MAIS LEVE */}
-                    <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-
-                    {/* VIDEO */}
-                    <video
-                      ref={setVideoRef(i)}
-                      src={item.src}
-                      className="absolute inset-0 h-full w-full object-cover"
-                      muted
-                      playsInline
-                      preload="metadata"
-                      onEnded={() => handleVideoEnded(i)}
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 z-10 bg-linear-to-t from-black/30 via-transparent to-transparent"
                     />
 
-                    {/* TEXTO */}
+                    {shouldStream ? (
+                      <MuxBgVideo
+                        playbackId={item.playbackId}
+                        posterSrc={item.posterSrc}
+                        maxResolution="1080p"
+                        preload="auto"
+                        className="absolute inset-0"
+                      />
+                    ) : (
+                      <Image
+                        src={item.posterSrc}
+                        alt=""
+                        fill
+                        sizes="(max-width: 768px) 100vw, 72rem"
+                        aria-hidden="true"
+                        className="object-cover"
+                      />
+                    )}
+
                     {item.caption && (
                       <div className="absolute bottom-0 left-0 z-20 p-6">
-                        <p className="text-white font-semibold text-sm sm:text-base">
+                        <p className="text-sm font-semibold text-white sm:text-base">
                           {item.caption}
                         </p>
                       </div>
@@ -192,27 +145,32 @@ export default function Gallery() {
               })}
             </div>
 
-            {/* BOTÕES */}
             <button
+              type="button"
               onClick={prev}
-              className="absolute top-1/2 left-4 z-30 -translate-y-1/2 bg-black/40 p-3 rounded-full text-white"
+              aria-label="Mostrar item anterior da galeria"
+              className="absolute top-1/2 left-4 z-30 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white"
             >
-              <ChevronLeft />
+              <ChevronLeft aria-hidden />
             </button>
 
             <button
+              type="button"
               onClick={next}
-              className="absolute top-1/2 right-4 z-30 -translate-y-1/2 bg-black/40 p-3 rounded-full text-white"
+              aria-label="Mostrar próximo item da galeria"
+              className="absolute top-1/2 right-4 z-30 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white"
             >
-              <ChevronRight />
+              <ChevronRight aria-hidden />
             </button>
 
-            {/* DOTS */}
-            <div className="absolute bottom-4 w-full flex justify-center gap-2 z-30">
-              {items.map((_, i) => (
+            <div className="absolute bottom-4 z-30 flex w-full justify-center gap-2">
+              {items.map((item, i) => (
                 <button
-                  key={i}
+                  key={item.playbackId}
+                  type="button"
                   onClick={() => goTo(i)}
+                  aria-current={i === index ? "true" : undefined}
+                  aria-label={`Mostrar item ${i + 1} da galeria: ${item.caption}`}
                   className={`h-2 rounded-full transition-all ${
                     i === index ? "w-8 bg-green-500" : "w-3 bg-white/50"
                   }`}
